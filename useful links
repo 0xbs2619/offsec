@@ -1,6 +1,9 @@
+Useful OSCP Links:
+https://gist.github.com/cokebottle/3e0916522dc09086ee45e5a93d664f16
+
+
 Windows PRivilege Escalation:
 http://hackingandsecurity.blogspot.in/2017/09/oscp-windows-priviledge-escalation.html
-https://gist.github.com/cokebottle/3e0916522dc09086ee45e5a93d664f16
 https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide
 
 
@@ -14,3 +17,6 @@ http://touhidshaikh.com/blog/?p=790
 
 FOR MSSQL penetartion testing using msf:
 http://www.hackingarticles.in/mssql-penetration-testing-metasploit/
+
+
+
