@@ -30,3 +30,8 @@ shell_exec
 passthru
 system
 try all
+
+
+tool to connect mssql
+pth-sqsh
+
