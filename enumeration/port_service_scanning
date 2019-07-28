@@ -1,0 +1,11 @@
+#port service scanning
+
+1. Tools to be used :
+ 1.1 Sparta (staged nmap both tcp & udp)
+ 
+ 1.2 Unicornscan (udp)
+ unicornscan -I -E 10.11.1.220
+
+PortKnocking Tools:
+hping3
+
