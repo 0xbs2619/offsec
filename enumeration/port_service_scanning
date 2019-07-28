@@ -2,10 +2,104 @@
 
 1. Tools to be used :
  1.1 Sparta (staged nmap both tcp & udp)
- 
  1.2 Unicornscan (udp)
  unicornscan -I -E 10.11.1.220
+ 
+ 
+ 1.3 NMap
+ 
+ 	nmap 10.11.1.220   #top 1000 ports with TCP stealth Scan
+	nmap -sV -O -sT 10.11.1.220 #for service enumeration
+	
+	for all ports
+	nmap -sT -p 1-65535 x.x.x.x
+	nmap -sT -p- x.x.x.x
+	
+	NSE Script
+	nmap x.x.x.x --script smb-os-discovery.nse
+	nmap --script=dns-zone-transfer -p 53 ns2.megacorpone.com
+	
+	
+3. SMB Enumeration
+	Here is a quick list to clarify SMB version numbers, and their related Windows Operating system versions:
+	o SMB1 – Windows 2000, XP and Windows 2003.
+	o SMB2 – Windows Vista SP1 and Windows 2008
+	o SMB2.1 – Windows 7 and Windows 2008 R2
+	o SMB3 – Windows 8 and Windows 2012.
+	enum4linux is a tool for enumerating information from Windows and Samba systems”.
+	It is written in Perl and is basically a wrapper around the Samba 36 tools smbclient, rpcclient, net and nmblookup.
+	
+	enum4linux -a 10.11.1.227
+	
+	Nmap SMB NSE Scripts
+		ls -l /usr/share/nmap/scripts/smb*
+		nmap -v -p 139, 445 --script=smb-os-discovery 10.11.1.227
+		nmap -v -p 139,445 --script=smb-vuln-ms08-067 --script-args=unsafe=1 10.11.1.201
+		
+4. SMTP Enumeration (Port 25)
+	SMTP 39 supports several important commands, such as VRFY
+	and EXPN. A VRFY request asks the server to verify an email address, while EXPN asks
+	the server for the membership of a mailing list. These can often be abused to verify
+	existing users on a mail server, which can later aid the attacker.
+	
+	smtp-user-enum
+	Type following command to enumerate username using a dictionary of usernames:
+	smtp-user-enum -M VRFY -U /root/Desktop/user.txt -t 192.168.1.107
+	
+	Type following command to verify user email address on mail server:
+	smtp-user-enum -M VRFY -D mail.ignite.lab -u raj -t 192.168.1.107
+	
+	iSMTP
+	ismtp -h 192.168.1.107:25 -e /root/Desktop/email.txt
+	-h <host>       The target IP and port (IP:port)
+  -e <file>   Enable SMTP user enumeration testing and imports email list.
+	
+5.SNMP Enumeration (Port 161)
+	onesixtyone -c community -i ips   
+	#community= list of community strings; public,private,manager
+	#ips=list of ips
+	Enumerating the Entire MIB Tree
+	snmpwalk -c public -v1 10.11.1.219
+	
+	Enumerating Windows Users:
+	snmpwalk -c public -v1 10.11.1.204 1.3.6.1.4.1.77.1.2.25
+	
+	Enumerating Running Windows Processes:
+	snmpwalk -c public -v1 10.11.1.204 1.3.6.1.2.1.25.4.2.1.2
+	
+	Enumerating Open TCP Ports:
+	snmpwalk -c public -v1 10.11.1.204 1.3.6.1.2.1.6.13.1.3
+	
+	Enumerating Installed Software:
+	snmpwalk -c public -v1 10.11.1.204 1.3.6.1.2.1.25.6.3.1.2
+	
+	snmp-check
+	snmp-check 192.168.1.2 -c public
+	
+
+2. DNS Enumeration
+	Forward Lookups
+		host www.megacorpe.com
+		host -t ns www.xxx.com
+		host -t mx www.xxx.xom
+		t=type
+		ns= name server
+		mx=mail exchange
+	
+	DNS Zone Transfer
+		A zone transfer is similar to a database replication act between related DNS servers.
+		host -l <domain name> <dns server address>
+		host -l xxx.com ns1.xxx.com
+		
+	DNS Tools:
+		DNSRecon
+		dnsrecon -d xxx.com -t axfr
+		
+		dnsenum xxx.com
+
+
 
 PortKnocking Tools:
 hping3
+
 
